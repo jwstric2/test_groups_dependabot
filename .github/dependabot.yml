@@ -7,6 +7,8 @@ updates:
       prefix: "fix"
       prefix-development: "build"
       include: "scope"
+    directories:
+      - "**/*"
     groups: 
       production-version-update:
         applies-to: version-updates
