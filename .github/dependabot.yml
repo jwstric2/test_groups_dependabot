@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "fix"
+      prefix-development: "build"
+      include: "scope"
+    groups: 
+      production-version-updates:
+        applies-to: version-updates
+        dependency-type: "production"
+      development-version-updates:
+        applies-to: version-updates
+        dependency-type: "development"
+      production-security-updates:
+        applies-to: security-updates
+        dependency-type: "production"
+      development-security-updates:
+        applies-to: security-updates
+        dependency-type: "development"
