@@ -1,0 +1,107 @@
+####################
+# FIN source image #
+####################
+FROM 925998874146.dkr.ecr.us-east-1.amazonaws.com/corona/file-inventory:2.0.0 AS fin_image
+
+################
+# Yara Builder #
+################
+FROM public.ecr.aws/debian/debian:bookworm-20241111-slim@sha256:584ec2fd8282da1f87cf529b2d90bdf2d3bc94172f6b26acd5f7802308929c40 AS yara_builder
+ENV LANG=C.UTF-8
+
+RUN apt-get update -y && apt-get install -y \
+  automake \
+  curl \
+  gcc \
+  libssl-dev \
+  libtool \
+  make \
+  pkg-config \
+  && rm -rf /var/lib/apt/lists/*
+
+# Latest Yara release does not follow symlinks, check out commit that makes this change. Run configure with --enable-macho to get Mac module for mach-o binary detection.
+ENV YARA_VERSION=4.0.2
+RUN cd /tmp && curl -o v${YARA_VERSION}.tar.gz https://codeload.github.com/VirusTotal/yara/tar.gz/v${YARA_VERSION} \
+  && tar zxf v${YARA_VERSION}.tar.gz && cd yara-${YARA_VERSION} \
+  && ./bootstrap.sh && ./configure && make && make install && make check
+
+##############
+# Main Image #
+##############
+FROM 925998874146.dkr.ecr.us-east-1.amazonaws.com/corona/python-clamav:3.12-bookworm AS main
+
+LABEL CoronaImageIdentifier=afx-python IsArtifexImage=true
+ENV CoronaImageIdentifier=afx-python
+ENV LANG=C.UTF-8
+
+COPY VERSION .
+
+# Package Notes:
+# debsigs      - A dependency for ISC
+# osslsigncode - A dependency for running Curioscan -k option.
+RUN apt-get update && apt-get install -y \
+  curl \
+  debsigs \
+  lz4 \
+  lzop \
+  osslsigncode \
+  rpm \
+  ruby \
+  ruby-dev \
+  xxd \
+  zstd \
+  && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.python.txt /tmp/requirements.python.txt
+RUN --mount=type=secret,id=pipconf PIP_CONFIG_FILE=/run/secrets/pipconf pip install -r /tmp/requirements.python.txt
+
+# Install yara
+COPY --from=yara_builder /usr/local/bin/yara /usr/local/bin/yara
+
+# Install FIN
+COPY --from=fin_image /fin/src/file-inventory /fin/
+COPY --from=fin_image /usr/local/lib/* /fin/lib/
+# Note: if the VERSION file is moved, this will break the finland.py script
+COPY --from=fin_image /fin/VERSION /fin/VERSION
+# Allows FIN to get to the mongo-c driver
+ENV LD_LIBRARY_PATH=/fin/lib
+
+# Install Syft
+# env used in syft script too
+ENV SYFT_VERSION=1.10.0
+RUN curl -sLo syft_linux.deb "https://github.com/anchore/syft/releases/download/v${SYFT_VERSION}/syft_${SYFT_VERSION}_linux_$(dpkg --print-architecture).deb" \
+  && dpkg -i syft_linux.deb \
+  && rm syft_linux.deb
+
+# Add syft config folders
+COPY syft/ /syft
+
+# Install TruffleHog
+ENV TRUFFLEHOG_OS_VERSION=3.82.8
+RUN curl -sL "https://github.com/trufflesecurity/trufflehog/releases/download/v$TRUFFLEHOG_OS_VERSION/trufflehog_${TRUFFLEHOG_OS_VERSION}_linux_$(dpkg --print-architecture).tar.gz" \
+  | tar -xzO trufflehog \
+  > /usr/local/bin/trufflehog-os \
+  && chmod +x /usr/local/bin/trufflehog-os
+# Add trufflehog config folders
+COPY trufflehog/ /trufflehog
+
+# Install TRM
+COPY trm/trm /usr/local/bin/trm
+
+# Bundle install
+RUN gem install bundler
+WORKDIR /artifex
+COPY Gemfile Gemfile.lock ./
+RUN --mount=type=secret,id=BUNDLE_RUBYGEMS__PKG__GITHUB__COM \
+  BUNDLE_RUBYGEMS__PKG__GITHUB__COM=$(cat /run/secrets/BUNDLE_RUBYGEMS__PKG__GITHUB__COM) \
+  bundle install
+
+# Main code copy
+ENV PYTHONPATH=/artifex
+COPY . .
+VOLUME /workspace
+WORKDIR /workspace
+
+ENTRYPOINT ["/artifex/entrypoint.sh"]
+
+CMD ["/bin/bash"]

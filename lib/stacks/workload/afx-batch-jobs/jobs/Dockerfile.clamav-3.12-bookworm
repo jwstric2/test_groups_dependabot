@@ -1,0 +1,19 @@
+FROM public.ecr.aws/docker/library/python:3.12-bookworm@sha256:78409b7acdc408ff1dbdc936e246edcb07bba423581db47399f7db3ecad68852
+
+LABEL CoronaImageIdentifier=afx-python-clamav IsArtifexImage=true
+ENV CoronaImageIdentifier=afx-clamav
+
+ARG PACKAGE_UPDATE_DATE="undefined"
+RUN echo "building with PACKAGE_UPDATE_DATE: $PACKAGE_UPDATE_DATE"
+RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
+  clamav \
+  clamav-daemon \
+  clamav-freshclam \
+  clamdscan \
+  && rm -rf /var/lib/apt/lists/*
+
+COPY ./clamav/clamd.conf /etc/clamav/clamd.conf
+
+ARG FRESHCLAM_UPDATE_RUN_ID="undefined"
+RUN echo "building with FRESHCLAM_UPDATE_RUN_ID: ${FRESHCLAM_UPDATE_RUN_ID}"
+RUN ! freshclam | tee /dev/stderr | grep -qF 'cool-down until'
