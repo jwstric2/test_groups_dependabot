@@ -1,0 +1,18 @@
+FROM 925998874146.dkr.ecr.us-east-1.amazonaws.com/corona/imgunbundle:8.8.10
+
+LABEL CoronaImageIdentifier=afx-unbundler IsArtifexImage=true
+ENV CoronaImageIdentifier=afx-unbundler
+
+COPY VERSION .
+
+COPY requirements.unbundler.txt /tmp/requirements.unbundler.txt
+RUN --mount=type=secret,id=pipconf PIP_CONFIG_FILE=/run/secrets/pipconf pip3 install -r /tmp/requirements.unbundler.txt
+
+ENV PYTHONPATH=/artifex
+COPY . /artifex/
+
+VOLUME /workspace
+WORKDIR /workspace
+
+ENTRYPOINT ["/artifex/entrypoint-unbundler.sh"]
+CMD ["/bin/bash"]
