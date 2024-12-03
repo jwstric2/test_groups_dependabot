@@ -7,16 +7,18 @@ updates:
       prefix: "fix"
       prefix-development: "build"
       include: "scope"
+    directories:
+      - "**/*"
     groups: 
-      production-version-updates:
+      production-version-update:
         applies-to: version-updates
         dependency-type: "production"
-      development-version-updates:
+      development-version-update:
         applies-to: version-updates
         dependency-type: "development"
-      production-security-updates:
+      production-security-update:
         applies-to: security-updates
         dependency-type: "production"
-      development-security-updates:
+      development-security-update:
         applies-to: security-updates
         dependency-type: "development"
