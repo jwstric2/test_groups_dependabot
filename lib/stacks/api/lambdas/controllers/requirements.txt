@@ -10,15 +10,15 @@ attrs==24.2.0 \
     # via
     #   jsonschema
     #   referencing
-boto3==1.35.63 \
-    --hash=sha256:d0f938d4f6f392b6ffc5e75fff14a42e5bbb5228675a0367c8af55398abadbec \
-    --hash=sha256:deb593d9a0fb240deb4c43e4da8e6626d7c36be7b2fd2fe28f49d44d395b7de0
+boto3==1.35.78 \
+    --hash=sha256:5ef7166fe5060637b92af8dc152cd7acecf96b3fc9c5456706a886cadb534391 \
+    --hash=sha256:fc8001519c8842e766ad3793bde3fbd0bb39e821a582fc12cf67876b8f3cf7f1
     # via
-    #   -r lib/stacks/api/lambdas/controllers/requirements.in
+    #   -r requirements.in
     #   moto
-botocore==1.35.63 \
-    --hash=sha256:0ca1200694a4c0a3fa846795d8e8a08404c214e21195eb9e010c4b8a4ca78a4a \
-    --hash=sha256:2b8196bab0a997d206c3d490b52e779ef47dffb68c57c685443f77293aca1589
+botocore==1.35.78 \
+    --hash=sha256:41c37bd7c0326f25122f33ec84fb80fc0a14d7fcc9961431b0e57568e88c9cb5 \
+    --hash=sha256:6905036c25449ae8dba5e950e4b908e4b8a6fe6b516bf61e007ecb62fa21f323
     # via
     #   boto3
     #   moto
@@ -26,7 +26,7 @@ botocore==1.35.63 \
 cerberus==1.3.5 \
     --hash=sha256:7649a5815024d18eb7c6aa5e7a95355c649a53aacfc9b050e9d0bf6bfa2af372 \
     --hash=sha256:81011e10266ef71b6ec6d50e60171258a5b134d69f8fb387d16e4936d0d47642
-    # via -r lib/stacks/api/lambdas/controllers/requirements.in
+    # via -r requirements.in
 certifi==2024.8.30 \
     --hash=sha256:922820b53db7a7257ffbda3f597266d435245903d80737e34f8a45ff3e3230d8 \
     --hash=sha256:bec941d2aa8195e248a60b31ff9f0558284cf01a52591ceda73ea9afffd69fd9
@@ -236,18 +236,12 @@ cryptography==43.0.3 \
     --hash=sha256:f46304d6f0c6ab8e52770addfa2fc41e6629495548862279641972b6215451cd \
     --hash=sha256:f7b178f11ed3664fd0e995a47ed2b5ff0a12d893e41dd0494f406d1cf555cab7
     # via
+    #   joserfc
     #   moto
-    #   python-jose
 docker==7.1.0 \
     --hash=sha256:ad8c70e6e3f8926cb8a92619b832b4ea5299e2831c14284663184e200546fa6c \
     --hash=sha256:c96b93b7f0a746f9e77d325bcfb87422a3d8bd4f03136ae8a85b37f1898d5fc0
     # via moto
-ecdsa==0.19.0 \
-    --hash=sha256:2cea9b88407fdac7bbeca0833b189e4c9c53f2ef1e1eaa29f6224dbc809b707a \
-    --hash=sha256:60eaad1199659900dd0af521ed462b793bbdf867432b3948e87416ae4caf6bf8
-    # via
-    #   moto
-    #   python-jose
 idna==3.10 \
     --hash=sha256:12f65c9b470abda6dc35cf8e63cc574b1c52b11df2c86030af0ac09b01b13ea9 \
     --hash=sha256:946d195a0d259cbba61165e88e65941f16e9b36ea6ddb97f00452bae8b1287d3
@@ -262,6 +256,10 @@ jmespath==1.0.1 \
     # via
     #   boto3
     #   botocore
+joserfc==1.0.1 \
+    --hash=sha256:ae16f56b4091181cab5148a75610bb40d2452db17d09169598605250fa40f5dd \
+    --hash=sha256:c4507be82d681245f461710ffca1fa809fd288f49bc3ce4dba0b1c591700a686
+    # via moto
 jsonschema==4.23.0 \
     --hash=sha256:d71497fef26351a33265337fa77ffeb82423f3ea21283cd9467bb03999266bc4 \
     --hash=sha256:fbadb6f8b144a8f8cf9f0b89ba94501d143e50411a1278633f56a7acf7fd5566
@@ -382,10 +380,10 @@ markupsafe==3.0.2 \
     # via
     #   jinja2
     #   werkzeug
-moto[apigateway,dynamodb,logs,s3]==4.2.14 \
-    --hash=sha256:6d242dbbabe925bb385ddb6958449e5c827670b13b8e153ed63f91dbdb50372c \
-    --hash=sha256:8f9263ca70b646f091edcc93e97cda864a542e6d16ed04066b1370ed217bd190
-    # via -r lib/stacks/api/lambdas/controllers/requirements.in
+moto[apigateway,dynamodb,logs,s3]==5.0.22 \
+    --hash=sha256:daf47b8a1f5f190cd3eaa40018a643f38e542277900cf1db7f252cedbfed998f \
+    --hash=sha256:defae32e834ba5674f77cbbe996b41dc248dd81289af8032fa3e847284409b29
+    # via -r requirements.in
 openapi-schema-validator==0.6.2 \
     --hash=sha256:11a95c9c9017912964e3e5f2545a5b11c3814880681fcacfb73b1759bb4f2804 \
     --hash=sha256:c4887c1347c669eb7cded9090f4438b710845cd0f90d1fb9e1b3303fb37339f8
@@ -398,16 +396,10 @@ pathable==0.4.3 \
     --hash=sha256:5c869d315be50776cc8a993f3af43e0c60dc01506b399643f919034ebf4cdcab \
     --hash=sha256:cdd7b1f9d7d5c8b8d3315dbf5a86b2596053ae845f056f57d97c0eefff84da14
     # via jsonschema-path
-py-partiql-parser==0.5.0 \
-    --hash=sha256:427a662e87d51a0a50150fc8b75c9ebb4a52d49129684856c40c88b8c8e027e4 \
-    --hash=sha256:dc454c27526adf62deca5177ea997bf41fac4fd109c5d4c8d81f984de738ba8f
+py-partiql-parser==0.5.6 \
+    --hash=sha256:622d7b0444becd08c1f4e9e73b31690f4b1c309ab6e5ed45bf607fe71319309f \
+    --hash=sha256:6339f6bf85573a35686529fc3f491302e71dd091711dfe8df3be89a93767f97b
     # via moto
-pyasn1==0.6.1 \
-    --hash=sha256:0d632f46f2ba09143da3a8afe9e33fb6f92fa2320ab7e886e2d0f7672af84629 \
-    --hash=sha256:6f580d2bdd84365380830acf45550f2511469f673cb4a5ae3857a3170128b034
-    # via
-    #   python-jose
-    #   rsa
 pycparser==2.22 \
     --hash=sha256:491c8be9c040f5390f5bf44a5b07752bd07f56edf992381b05c701439eec10f6 \
     --hash=sha256:c3702b6d3dd8c7abc1afa565d7e63d53a1d0bd86cdc24edd75470f4de499cfcc
@@ -418,10 +410,6 @@ python-dateutil==2.9.0.post0 \
     # via
     #   botocore
     #   moto
-python-jose[cryptography]==3.3.0 \
-    --hash=sha256:55779b5e6ad599c6336191246e95eb2293a9ddebd555f796a65f838f07e5d78a \
-    --hash=sha256:9b1376b023f8b298536eedd47ae1089bcdb848f1535ab30555cd92002d78923a
-    # via moto
 pyyaml==6.0.2 \
     --hash=sha256:01179a4a8559ab5de078078f37e5c1a30d76bb88519906844fd7bdea1b7729ff \
     --hash=sha256:0833f8694549e586547b576dcfaba4a6b55b9e96098b36cdc7ebefe667dfed48 \
@@ -479,6 +467,7 @@ pyyaml==6.0.2 \
     # via
     #   jsonschema-path
     #   moto
+    #   responses
 referencing==0.35.1 \
     --hash=sha256:25b42124a6c8b632a425174f24087783efb348a6f1e0008e63cd4466fedf703c \
     --hash=sha256:eda6d3234d62814d1c64e305c1331c9a3a6132da475ab6382eaa997b21ee75de
@@ -494,15 +483,15 @@ requests==2.32.3 \
     #   jsonschema-path
     #   moto
     #   responses
-responses==0.16.0 \
-    --hash=sha256:a2e3aca2a8277e61257cd3b1c154b1dd0d782b1ae3d38b7fa37cbe3feb531791 \
-    --hash=sha256:f358ef75e8bf431b0aa203cc62625c3a1c80a600dbe9de91b944bf4e9c600b92
+responses==0.25.3 \
+    --hash=sha256:521efcbc82081ab8daa588e08f7e8a64ce79b91c39f6e62199b19159bea7dbcb \
+    --hash=sha256:617b9247abd9ae28313d57a75880422d55ec63c29d33d629697590a034358dba
     # via
-    #   -r lib/stacks/api/lambdas/controllers/requirements.in
+    #   -r requirements.in
     #   moto
 retry-decorator==1.1.1 \
     --hash=sha256:e1e8ad02e518fe11073f2ea7d80b6b8be19daa27a60a1838aff7c731ddcf2ebe
-    # via -r lib/stacks/api/lambdas/controllers/requirements.in
+    # via -r requirements.in
 rfc3339-validator==0.1.4 \
     --hash=sha256:138a2abdf93304ad60530167e51d2dfb9549521a836871b88d7f4695d0022f6b \
     --hash=sha256:24f6ec1eda14ef823da9e36ec7113124b39c04d50a4d3d3a3c2859577e7791fa
@@ -601,10 +590,6 @@ rpds-py==0.21.0 \
     # via
     #   jsonschema
     #   referencing
-rsa==4.9 \
-    --hash=sha256:90260d9058e514786967344d0ef75fa8727eed8a7d2e43ce9f4bcf1b536174f7 \
-    --hash=sha256:e38464a49c6c85d7f1351b0126661487a7e0a14a50f1675ec50eb34d4f20ef21
-    # via python-jose
 s3transfer==0.10.3 \
     --hash=sha256:263ed587a5803c6c708d3ce44dc4dfedaab4c1a32e8329bab818933d79ddcf5d \
     --hash=sha256:4f50ed74ab84d474ce614475e0b8d5047ff080810aac5d01ea25231cfc944b0c
@@ -613,9 +598,7 @@ six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
     --hash=sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254
     # via
-    #   ecdsa
     #   python-dateutil
-    #   responses
     #   rfc3339-validator
 urllib3==2.2.3 \
     --hash=sha256:ca899ca043dcb1bafa3e262d73aa25c465bfb49e0bd9dd5d59f1d0acba2f8fac \
