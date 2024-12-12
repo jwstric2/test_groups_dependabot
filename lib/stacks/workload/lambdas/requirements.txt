@@ -4,13 +4,13 @@
 #
 #    pip-compile --generate-hashes --no-emit-index-url lib/stacks/workload/lambdas/requirements.in
 #
-boto3==1.35.63 \
-    --hash=sha256:d0f938d4f6f392b6ffc5e75fff14a42e5bbb5228675a0367c8af55398abadbec \
-    --hash=sha256:deb593d9a0fb240deb4c43e4da8e6626d7c36be7b2fd2fe28f49d44d395b7de0
-    # via -r lib/stacks/workload/lambdas/requirements.in
-botocore==1.35.63 \
-    --hash=sha256:0ca1200694a4c0a3fa846795d8e8a08404c214e21195eb9e010c4b8a4ca78a4a \
-    --hash=sha256:2b8196bab0a997d206c3d490b52e779ef47dffb68c57c685443f77293aca1589
+boto3==1.35.79 \
+    --hash=sha256:1fa26217cd33ded82e55aed4460cd55f7223fa647916aa0d3c5d6828e6ec7135 \
+    --hash=sha256:a673b0b6378c9ccbf045a31a43195b175e12aa5c37fb7635fcbfc8f48fb857b3
+    # via -r requirements.in
+botocore==1.35.79 \
+    --hash=sha256:245bfdda1b1508539ddd1819c67a8a2cc81780adf0715d3de418d64c4247f346 \
+    --hash=sha256:e6b10bb9a357e3f5ca2e60f6dd15a85d311b9a476eb21b3c0c2a3b364a2897c8
     # via
     #   boto3
     #   s3transfer
