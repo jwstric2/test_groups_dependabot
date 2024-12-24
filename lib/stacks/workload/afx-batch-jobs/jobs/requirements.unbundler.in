@@ -1,2 +1,2 @@
 boto3~=1.24
-moto[dynamodb,s3,secretsmanager,sts]~=4.0
+moto[dynamodb,s3,secretsmanager,sts]~=5.0
