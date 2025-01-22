@@ -4,17 +4,17 @@
 #
 #    pip-compile --generate-hashes --no-emit-index-url lib/stacks/pipeline/acceptance/requirements.in
 #
-boto3==1.35.63 \
-    --hash=sha256:d0f938d4f6f392b6ffc5e75fff14a42e5bbb5228675a0367c8af55398abadbec \
-    --hash=sha256:deb593d9a0fb240deb4c43e4da8e6626d7c36be7b2fd2fe28f49d44d395b7de0
-    # via -r lib/stacks/pipeline/acceptance/requirements.in
+boto3==1.36.3 \
+    --hash=sha256:53a5307f6a3526ee2f8590e3c45efa504a3ea4532c1bfe4926c0c19bf188d141 \
+    --hash=sha256:f9843a5d06f501d66ada06f5a5417f671823af2cf319e36ceefa1bafaaaaa953
+    # via -r requirements.in
 boto3-type-annotations==0.3.1 \
     --hash=sha256:52e007ac2ab792abee42aaac3019c2acc9781a84e79e1283a5bc64164225435e \
     --hash=sha256:e5682093d035e935c8189f24c601ef6eaccedfcd1e642ba7922429d093b1b885
-    # via -r lib/stacks/pipeline/acceptance/requirements.in
-botocore==1.35.63 \
-    --hash=sha256:0ca1200694a4c0a3fa846795d8e8a08404c214e21195eb9e010c4b8a4ca78a4a \
-    --hash=sha256:2b8196bab0a997d206c3d490b52e779ef47dffb68c57c685443f77293aca1589
+    # via -r requirements.in
+botocore==1.36.3 \
+    --hash=sha256:536ab828e6f90dbb000e3702ac45fd76642113ae2db1b7b1373ad24104e89255 \
+    --hash=sha256:775b835e979da5c96548ed1a0b798101a145aec3cd46541d62e27dda5a94d7f8
     # via
     #   boto3
     #   s3transfer
@@ -146,10 +146,10 @@ python-dateutil==2.9.0.post0 \
 requests==2.32.3 \
     --hash=sha256:55365417734eb18255590a9ff9eb97e9e1da868d4ccd6402399eaf68af20a760 \
     --hash=sha256:70761cfe03c773ceb22aa2f671b4757976145175cdfca038c02654d061d6dcc6
-    # via -r lib/stacks/pipeline/acceptance/requirements.in
-s3transfer==0.10.3 \
-    --hash=sha256:263ed587a5803c6c708d3ce44dc4dfedaab4c1a32e8329bab818933d79ddcf5d \
-    --hash=sha256:4f50ed74ab84d474ce614475e0b8d5047ff080810aac5d01ea25231cfc944b0c
+    # via -r requirements.in
+s3transfer==0.11.1 \
+    --hash=sha256:3f25c900a367c8b7f7d8f9c34edc87e300bde424f779dc9f0a8ae4f9df9264f6 \
+    --hash=sha256:8fa0aa48177be1f3425176dfe1ab85dcd3d962df603c3dbfc585e6bf857ef0ff
     # via boto3
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
