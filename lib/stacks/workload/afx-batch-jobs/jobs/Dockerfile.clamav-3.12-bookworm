@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/python:3.12-bookworm@sha256:78409b7acdc408ff1dbdc936e246edcb07bba423581db47399f7db3ecad68852
+FROM public.ecr.aws/docker/library/python:3.13-bookworm@sha256:0a2cf88c3aa4ddafc15f7f0104d27fab3bd9f1468dc9e311ce056c857e540a06
 
 LABEL CoronaImageIdentifier=afx-python-clamav IsArtifexImage=true
 ENV CoronaImageIdentifier=afx-clamav

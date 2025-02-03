@@ -1,4 +1,4 @@
-FROM public.ecr.aws/lambda/python:3.12@sha256:92c88c1adc374b073b07b12bd4045497af7da68230d47c2b330423115c5850dc
+FROM public.ecr.aws/lambda/python:3.13@sha256:63811c90432ba7a9e4de4fe1e9797a48dae0762f1d56cb68636c3d0a7239ff68
 
 LABEL IsArtifexImage=true
 
