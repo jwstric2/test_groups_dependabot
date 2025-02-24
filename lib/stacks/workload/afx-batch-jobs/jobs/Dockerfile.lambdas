@@ -1,4 +1,4 @@
-FROM public.ecr.aws/lambda/python:3.12@sha256:92c88c1adc374b073b07b12bd4045497af7da68230d47c2b330423115c5850dc
+FROM public.ecr.aws/lambda/python:3.13@sha256:5e7e09c5bf735a8e824511117bb0e9f335b778ac2e17a07161ee1542509b98f4
 
 LABEL CoronaImageIdentifier=afx-lambdas IsArtifexImage=true
 ENV CoronaImageIdentifier=afx-lambdas
